@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>En Venta: Edificio Comercial y Complejo Hotelero</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            500: '#9c6644', // Elegant copper/brown
+                            800: '#3a2618',
+                            900: '#1c1614',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Section Dividers */
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+        .wave-divider .shape-fill {
+            fill: #fdf8f6;
+        }
+
+        /* Image hover effect for gallery */
+        .gallery-img {
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.05);
+            filter: brightness(0.9);
+        }
+
+        /* Lightbox transitions */
+        #lightbox {
+            transition: opacity 0.3s ease;
+        }
+        #lightbox.hidden-opacity {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-brand-50 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-0 transition-all duration-300 backdrop-blur-md bg-white/80 border-b border-gray-100 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i data-lucide="building-2" class="h-8 w-8 text-brand-500 mr-2"></i>
+                    <span class="font-serif font-bold text-xl tracking-tight text-brand-900">Inmueble<span class="text-brand-500">Premium</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#edificio" class="text-sm font-medium text-gray-600 hover:text-brand-500 transition">Edificio</a>
+                    <a href="#oficinas" class="text-sm font-medium text-gray-600 hover:text-brand-500 transition">Oficinas</a>
+                    <a href="#habitaciones" class="text-sm font-medium text-gray-600 hover:text-brand-500 transition">Habitaciones</a>
+                    <a href="#patio" class="text-sm font-medium text-gray-600 hover:text-brand-500 transition">Patio</a>
+                    <a href="https://wa.me/59162096830?text=Hola,%20estoy%20interesado%20en%20el%20edificio%20comercial%20en%20venta." target="_blank" class="bg-brand-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-brand-800 transition shadow-lg shadow-brand-500/30 flex items-center">
+                        <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i> Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating WhatsApp Button (Mobile mainly, but visible always) -->
+    <a href="https://wa.me/59162096830?text=Hola,%20estoy%20interesado%20en%20el%20edificio%20comercial%20en%20venta." target="_blank" class="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center group">
+        <svg viewBox="0 0 24 24" class="w-7 h-7 fill-current"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.418-.099.824z"/></svg>
+        <span class="absolute right-14 bg-white text-gray-800 text-sm font-semibold py-1 px-3 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+            Hablar con el propietario
+        </span>
+    </a>
+
+    <!-- 1. Bienvenida / Hero Section -->
+    <header class="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/fachada.jpg" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop';" 
+                 alt="Fachada del Edificio" 
+                 class="w-full h-full object-cover object-center filter brightness-[0.65]" />
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 fade-in-up">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-500/80 text-white text-sm font-semibold tracking-wider uppercase mb-6 backdrop-blur-sm border border-brand-500/50">
+                Oportunidad de Inversión
+            </span>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                Edificio Comercial con <br/><span class="text-brand-100 italic">Oficinas y Habitaciones</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light drop-shadow-md">
+                En venta excepcional propiedad de diseño moderno. Totalmente equipada, impecablemente cuidada y lista para generar rentabilidad inmediata.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#detalles" class="bg-white text-brand-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition shadow-xl text-lg flex items-center justify-center">
+                    Explorar Propiedad <i data-lucide="arrow-down" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Wave Divider Bottom -->
+        <div class="wave-divider">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Highlights Bar -->
+    <div class="bg-brand-50 py-12 relative z-10" id="detalles">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                <div class="p-4 fade-in-up">
+                    <div class="mx-auto w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mb-4 text-brand-500">
+                        <i data-lucide="handshake" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Trato Directo</h3>
+                    <p class="text-gray-600">Negociación transparente y directa con el propietario, sin comisiones de intermediarios.</p>
+                </div>
+                <div class="p-4 fade-in-up" style="transition-delay: 100ms;">
+                    <div class="mx-auto w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mb-4 text-brand-500">
+                        <i data-lucide="hammer" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Construcción Moderna</h3>
+                    <p class="text-gray-600">Edificación de dos pisos con acabados de primera calidad, muy bien cuidada y con mantenimiento al día.</p>
+                </div>
+                <div class="p-4 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="mx-auto w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mb-4 text-brand-500">
+                        <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Full Equipamiento</h3>
+                    <p class="text-gray-600">Mobiliario, aires acondicionados, frigobares y sistemas completos. Todo funcionando al 100%.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Edificio Section -->
+    <section id="edificio" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Text -->
+                <div class="lg:w-1/2 fade-in-up">
+                    <div class="inline-flex items-center space-x-2 text-brand-500 font-semibold mb-4 uppercase tracking-wide text-sm">
+                        <i data-lucide="store" class="w-5 h-5"></i>
+                        <span>Planta Baja</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">Local Comercial Principal</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        La planta inferior destaca por su <strong>amplitud y versatilidad</strong>. Diseñada estructuralmente para albergar cualquier tipo de negocio comercial.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">Espacio diáfano ideal para vitrinas o atención al cliente.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">Baño propio totalmente terminado y equipado.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">Excelente iluminación natural y diseño de fachada atractivo.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Gallery -->
+                <div class="lg:w-1/2 w-full grid grid-cols-2 gap-4 fade-in-up" style="transition-delay: 200ms;">
+                    <!-- Photos (Using specific classes for Lightbox integration) -->
+                    <div class="col-span-2 rounded-2xl overflow-hidden h-64 shadow-lg cursor-pointer group" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/edificio1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop';" alt="Local Comercial Interior" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden h-48 shadow-lg cursor-pointer group relative" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/edificio2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582037928769-181f2644ce87?q=80&w=1000&auto=format&fit=crop';" alt="Detalle Local" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden h-48 shadow-lg cursor-pointer group relative" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/edificio3.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541882046896-cc86fa6e12e7?q=80&w=1000&auto=format&fit=crop';" alt="Baño Local" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Oficinas Section -->
+    <section id="oficinas" class="py-24 bg-brand-900 text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                <defs><pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40L40 0H20L0 20M40 40V20L20 40" stroke="currentColor" stroke-width="2" fill="none"/></pattern></defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)"/>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-16">
+                <!-- Gallery -->
+                <div class="lg:w-1/2 w-full grid grid-cols-2 gap-4 fade-in-up">
+                    <div class="col-span-2 rounded-2xl overflow-hidden h-72 shadow-2xl cursor-pointer group relative" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/ofi1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000&auto=format&fit=crop';" alt="Oficina Ejecutiva" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden h-56 shadow-2xl cursor-pointer group relative" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/ofi2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1000&auto=format&fit=crop';" alt="Mobiliario Oficina" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden h-56 shadow-2xl cursor-pointer group relative" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/ofi3.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1604328698692-f76ea9498e76?q=80&w=1000&auto=format&fit=crop';" alt="Baño Oficina" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Text -->
+                <div class="lg:w-1/2 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="inline-flex items-center space-x-2 text-brand-500 font-semibold mb-4 uppercase tracking-wide text-sm bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                        <span>Nivel Ejecutivo</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Oficinas Comerciales</h2>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        Espacios de trabajo premium diseñados para la máxima productividad. <strong>Modernas y full equipadas</strong>, listas para ser ocupadas por equipos ejecutivos o comerciales de alto nivel.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                            <i data-lucide="monitor" class="w-8 h-8 text-brand-500 mb-3"></i>
+                            <h4 class="font-bold text-white mb-1">Mobiliario Incluido</h4>
+                            <p class="text-sm text-gray-400">Escritorios y sillas ergonómicas de diseño moderno.</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                            <i data-lucide="bath" class="w-8 h-8 text-brand-500 mb-3"></i>
+                            <h4 class="font-bold text-white mb-1">Baño Privado</h4>
+                            <p class="text-sm text-gray-400">Sanitarios independientes con finos acabados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Habitaciones Section -->
+    <section id="habitaciones" class="py-24 bg-brand-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 fade-in-up">
+            <span class="text-brand-500 font-bold tracking-wider uppercase text-sm flex items-center justify-center gap-2 mb-3">
+                <i data-lucide="bed-double" class="w-5 h-5"></i> Ideal para Complejo Hotelero o Alojamiento
+            </span>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-4">5 Habitaciones Dobles Premium</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Espacios residenciales llave en mano, meticulosamente equipados con un estándar hotelero para garantizar el máximo confort.
+            </p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 fade-in-up" style="transition-delay: 100ms;">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:shadow-md transition">
+                    <i data-lucide="tv" class="w-8 h-8 text-brand-500 mx-auto mb-3"></i>
+                    <h4 class="font-bold text-gray-900 text-sm">TV de Alta Definición</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:shadow-md transition">
+                    <i data-lucide="refrigerator" class="w-8 h-8 text-brand-500 mx-auto mb-3"></i>
+                    <h4 class="font-bold text-gray-900 text-sm">Frigobar Incluido</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:shadow-md transition">
+                    <i data-lucide="bed" class="w-8 h-8 text-brand-500 mx-auto mb-3"></i>
+                    <h4 class="font-bold text-gray-900 text-sm">Camas 2 y 1.5 Plazas</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:shadow-md transition">
+                    <i data-lucide="shower-head" class="w-8 h-8 text-brand-500 mx-auto mb-3"></i>
+                    <h4 class="font-bold text-gray-900 text-sm">Baños Privados Full</h4>
+                </div>
+            </div>
+
+            <!-- Mosaic Gallery -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:grid-rows-2 h-[800px] md:h-[600px] fade-in-up" style="transition-delay: 200ms;">
+                <!-- Main big image -->
+                <div class="md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden shadow-lg cursor-pointer group relative" onclick="openLightbox(this)">
+                    <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/habitaciones1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000&auto=format&fit=crop';" alt="Habitación Principal" class="w-full h-full object-cover gallery-img loading-lazy">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <p class="text-white font-medium text-lg">Camas confortables y cortinas Blackout</p>
+                    </div>
+                </div>
+                <!-- Small side images -->
+                <div class="rounded-2xl overflow-hidden shadow-lg cursor-pointer group relative" onclick="openLightbox(this)">
+                    <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/habitaciones2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop';" alt="Baño Habitación" class="w-full h-full object-cover gallery-img loading-lazy">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-lg cursor-pointer group relative" onclick="openLightbox(this)">
+                    <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/habitaciones3.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=1000&auto=format&fit=crop';" alt="Equipamiento HD" class="w-full h-full object-cover gallery-img loading-lazy">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i data-lucide="maximize-2" class="text-white w-8 h-8"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Patio Section -->
+    <section id="patio" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Text -->
+                <div class="lg:w-1/2 order-2 lg:order-1 fade-in-up">
+                    <div class="inline-flex items-center space-x-2 text-brand-500 font-semibold mb-4 uppercase tracking-wide text-sm">
+                        <i data-lucide="sun-medium" class="w-5 h-5"></i>
+                        <span>Espacios Abiertos</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">Amplio Patio Exterior</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        La propiedad cuenta con un terreno adicional en la parte posterior. Un espacio polivalente que suma inmenso valor a su inversión.
+                    </p>
+                    <div class="bg-brand-50 p-6 rounded-2xl border-l-4 border-brand-500 mt-8">
+                        <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i data-lucide="arrow-up-right" class="w-5 h-5 mr-2 text-brand-500"></i> Potencial Ilimitado</h4>
+                        <p class="text-gray-700">Terreno lo suficientemente generoso para nuevas construcciones, ampliaciones de la estructura actual, o para ser utilizado inmediatamente como un amplio y seguro garaje privado para locatarios y huéspedes.</p>
+                    </div>
+                </div>
+                <!-- Image -->
+                <div class="lg:w-1/2 w-full order-1 lg:order-2 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="rounded-2xl overflow-hidden h-[400px] shadow-2xl cursor-pointer group relative" onclick="openLightbox(this)">
+                        <img src="https://raw.githubusercontent.com/turjan-bol/casero/main/Patio.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1585128719715-46776b56a0fb?q=80&w=1000&auto=format&fit=crop';" alt="Amplio Patio" class="w-full h-full object-cover gallery-img loading-lazy">
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="bg-white/90 text-gray-900 px-4 py-2 rounded-full font-medium flex items-center gap-2">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i> Ampliar fotografía
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Contact / Call to Action Section -->
+    <section class="py-24 relative overflow-hidden bg-brand-900 text-white text-center">
+        <!-- Background elements -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl">
+            <div class="absolute top-1/2 left-0 w-72 h-72 bg-brand-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-50 transform -translate-y-1/2"></div>
+            <div class="absolute top-1/2 right-0 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-30 transform -translate-y-1/2"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 fade-in-up">
+            <h2 class="font-serif text-5xl font-bold mb-6">¿Listo para su próxima gran inversión?</h2>
+            <p class="text-xl text-gray-300 mb-10 font-light">
+                Es trato directo con el propietario. Agende una visita hoy mismo y descubra el potencial de este complejo completamente funcional.
+            </p>
+            
+            <a href="https://wa.me/59162096830?text=Hola,%20estoy%20interesado%20en%20el%20edificio%20comercial%20en%20venta." target="_blank" class="inline-flex items-center justify-center bg-[#25D366] text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-[#1ebd5a] transition-all transform hover:scale-105 shadow-[0_0_40px_rgba(37,211,102,0.4)]">
+                <i data-lucide="message-circle" class="w-8 h-8 mr-3"></i>
+                Contactar al WhatsApp
+            </a>
+            <p class="mt-6 text-gray-400 font-medium">Línea directa: <span class="text-white">+591 62096830</span></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-900 border-t border-white/10 py-8 text-center text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <i data-lucide="building-2" class="w-8 h-8 text-brand-500 mb-4"></i>
+            <p>© 2024 Venta Directa de Inmueble. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX OVERLAY (Interactive high-res viewer) -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 hidden-opacity flex items-center justify-center" onclick="closeLightbox(event)">
+        <!-- Loading spinner -->
+        <div id="lightbox-loader" class="absolute inset-0 flex items-center justify-center text-white">
+            <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-brand-500"></i>
+        </div>
+        
+        <!-- Close button -->
+        <button class="absolute top-6 right-6 text-white hover:text-brand-500 transition bg-black/50 p-2 rounded-full z-50" onclick="closeLightbox(event, true)">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+
+        <!-- Image Container -->
+        <div class="relative max-w-[95vw] max-h-[90vh] z-40">
+            <img id="lightbox-img" src="" alt="Vista ampliada" class="max-w-full max-h-[90vh] object-contain rounded shadow-2xl transition-opacity duration-300 opacity-0" onload="imageLoaded()">
+        </div>
+        
+        <!-- Helper text -->
+        <div class="absolute bottom-6 text-white/50 text-sm font-medium z-40">Haz clic en cualquier parte para cerrar</div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // 1. Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 2. Scroll Animation Observer (Fade in on scroll)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(elem => {
+            observer.observe(elem);
+        });
+
+        // 3. Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('bg-white/80');
+                navbar.classList.add('bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.remove('bg-white/95');
+                navbar.classList.add('bg-white/80');
+            }
+        });
+
+        // 4. Lightbox Logic (for High-Res 5-10MB Images)
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const loader = document.getElementById('lightbox-loader');
+
+        function openLightbox(imgContainer) {
+            // Find the image inside the container
+            const imgEl = imgContainer.tagName === 'IMG' ? imgContainer : imgContainer.querySelector('img');
+            if(!imgEl) return;
+            
+            const src = imgEl.src;
+            
+            // Show lightbox container
+            lightbox.classList.remove('hidden-opacity');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Reset image state
+            lightboxImg.style.opacity = '0';
+            lightboxImg.src = '';
+            loader.style.display = 'flex';
+            
+            // Load high res (we use the exact same src, but the browser handles caching)
+            lightboxImg.src = src;
+        }
+
+        function closeLightbox(event, force = false) {
+            // Only close if clicking outside the image or on the close button
+            if (force || event.target === lightbox) {
+                lightbox.classList.add('hidden-opacity');
+                document.body.style.overflow = ''; // Restore scrolling
+                
+                // Slight delay to clear src so animation finishes smoothly
+                setTimeout(() => {
+                    lightboxImg.src = '';
+                }, 300);
+            }
+        }
+
+        function imageLoaded() {
+            // Hide loader and show image smoothly when high-res is fully loaded
+            loader.style.display = 'none';
+            lightboxImg.style.opacity = '1';
+        }
+        
+        // Escape key to close lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !lightbox.classList.contains('hidden-opacity')) {
+                closeLightbox(null, true);
+            }
+        });
+    </script>
+</body>
+</html>
